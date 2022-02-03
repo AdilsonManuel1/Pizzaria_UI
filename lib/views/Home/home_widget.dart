@@ -2,12 +2,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/views/Home/home_Cardapio_widget.dart';
+import 'package:flutter_app/views/login.dart';
+
 class HomeWidget extends StatefulWidget {
+  const HomeWidget({key}) : super(key:key);
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +34,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                   children:[
                     Text('Bem-Vindo', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight:FontWeight.bold),),
 
-                    IconButton(onPressed: (){}, icon:Icon(Icons.vpn_key_outlined, color: Colors.white, size: 20,) ),
+                    IconButton(onPressed: (){
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder:(context)=>LoginView()));
+                    }, icon:Icon(Icons.logout_rounded, color: Colors.white, size: 26,) ),
                   ]
             ),
               ),
