@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/views/palavrapass/palavraPassWidget.dart';
+
 
 class LoginView extends StatefulWidget {
   @override
@@ -134,7 +136,16 @@ class _LoginViewState extends State<LoginView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Esquece Minha Senha',style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                      new InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => PalavraPassWidgt() ),
+                            );
+                            },
+                        child:  Text('Esquece Minha Senha',style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                      ),
+
                     ],
                   ) ,
                   SizedBox(height: 30,),
