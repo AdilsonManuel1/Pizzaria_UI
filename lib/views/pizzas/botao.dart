@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-botaoWidgetPizza(){
+botaoWidgetPizza(ContextAction context){
   return Container(
     width: 250,
     height: 60,
@@ -20,3 +20,4 @@ botaoWidgetPizza(){
     ),
   );
 }
+
