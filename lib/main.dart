@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/views/Home/home_Cardapio_widget.dart';
 import 'package:flutter_app/views/Home/home_widget.dart';
+import 'package:flutter_app/views/createWelcame/NewUser.dart';
 import 'package:flutter_app/views/login.dart';
 
 void main() {
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.purple,
       ),
-      home:HomeWidget() ,
+      home:HomeCardapioWidget() ,
     );
   }
 }

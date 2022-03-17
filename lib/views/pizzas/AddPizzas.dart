@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: file_names
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:path/path.dart';
@@ -91,15 +92,20 @@ class _AddPizzasWidgetState extends State<AddPizzasWidget> {
   Future UploadImage() async{
     if(editMode){
       print('Entrou');
-      final uri = Uri.parse("http://192.168.156.205/backend/edit.php");
-      var request = http.MultipartRequest('POSt', uri);
+    /*  final url ="http://172.16.200.121/backend/edit.php";
+      http.post(Uri.parse(url), body: {
+        id = jsonEncode(url.indexOf(id));
+        'imagem':_image!.path,
+        'nome' : nome!.text,
+        'descricao' : descricao!.text,
+        'preco' : preco!.text,
+        'peso' : peso!.text,
+      });
+    */
 
-
-
-      request.fields['id']=widget.list![widget.index!];
-      //request.fields['id'] =  id!.text;
-     // request.fields['id'] = widget.list![widget.index!][id].toString();
-      //request.fields['id'] = widget.list as String;
+      final uri = Uri.parse("http://192.168.3.205/backend/edit.php");
+      var request = http.MultipartRequest('POST', uri);
+      request.fields['id']=widget.list![widget.index!]['id'];
       request.fields['name']= imagens.text;
       request.fields['nome'] =nome!.text;
       request.fields['descricao']=descricao!.text;
@@ -117,17 +123,14 @@ class _AddPizzasWidgetState extends State<AddPizzasWidget> {
         print('Falha ao enviar');
       }
 
-
     }else{
-      final uri = Uri.parse("http://192.168.156.205/backend/add.php");
+      final uri = Uri.parse("http://192.168.3.205/backend/add.php");
       var request = http.MultipartRequest('POST', uri);
       request.fields['name']= imagens.text;
       request.fields['nome'] =nome!.text;
       request.fields['descricao']=descricao!.text;
       request.fields['preco']=preco!.text;
       request.fields['peso']=peso!.text;
-
-
 
       var pic = await http.MultipartFile.fromPath('image', _image!.path);
       // coloquei isso
@@ -143,8 +146,6 @@ class _AddPizzasWidgetState extends State<AddPizzasWidget> {
     }
 
   }
-
-
 
 /*
   // Adicionar Pizza
@@ -171,14 +172,15 @@ class _AddPizzasWidgetState extends State<AddPizzasWidget> {
   @override
 
   void initState(){
-
+    imagens =
     nome = TextEditingController(text:'');
     preco = TextEditingController(text:'');
     peso = TextEditingController(text:'');
     descricao = TextEditingController(text:'');
+
     if(widget.index!= null){
       editMode = true;
-   //   _image!.path=widget.list![widget.index!]['imagem'];
+      _image!.path=widget.list![widget.index!]['imagem'];
      nome!.text = widget.list![widget.index!]['nome'];
      preco!.text = widget.list![widget.index!]['preco'];
      peso!.text = widget.list![widget.index!]['peso'];
@@ -496,12 +498,17 @@ class _AddPizzasWidgetState extends State<AddPizzasWidget> {
                               setState(() {
                                UploadImage();
                                 //AddUdateData();
+                                  if(editMode){
+                                    _displayDialogAlter(context);
 
-                                  _displayDialog(context);
-                                  nome = TextEditingController(text:'');
-                                  preco = TextEditingController(text:'');
-                                  peso = TextEditingController(text:'');
-                                  descricao = TextEditingController(text:'');
+                                  }else{
+                                    _displayDialog(context);
+                                    nome = TextEditingController(text:'');
+                                    preco = TextEditingController(text:'');
+                                    peso = TextEditingController(text:'');
+                                    descricao = TextEditingController(text:'');
+                                  }
+
 
 
                               //  Navigator.pushReplacement(context,MaterialPageRoute(builder:(context)=>HomeCardapioWidget()));
@@ -546,3 +553,18 @@ _displayDialog(BuildContext context) async {
     },
   );
 }
+_displayDialogAlter(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Expanded(
+        child: AlertDialog(
+          title: Text('Alteração de Pizza!', style: TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),),
+          content: Text('Pizza Alterada com Sucesso!'),
+
+        ),
+      );
+    },
+  );
+}
+
